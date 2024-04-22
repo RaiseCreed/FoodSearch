@@ -22,7 +22,7 @@ FoodSearch is a website with food recipes. Project is written in Django and it a
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/RaiseCreed/FoodSearch.git
 ```
 
 Go to the project directory
@@ -61,5 +61,8 @@ Run the app
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![account](https://github.com/RaiseCreed/FoodSearch/assets/104384996/11202467-727a-4989-a700-6a247450998e)
+![main](https://github.com/RaiseCreed/FoodSearch/assets/104384996/016b1dce-a2df-4154-b5ae-12bb0bf6680d)
+![recipePreview](https://github.com/RaiseCreed/FoodSearch/assets/104384996/05152301-c04f-4ec0-8a27-519745f4e323)
+![registerPage](https://github.com/RaiseCreed/FoodSearch/assets/104384996/370aaf78-1dc0-47d8-96aa-89f75e9b1473)
 
