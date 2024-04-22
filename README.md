@@ -61,8 +61,8 @@ Run the app
 
 ## Screenshots
 
-![account](https://github.com/RaiseCreed/FoodSearch/assets/104384996/11202467-727a-4989-a700-6a247450998e)
 ![main](https://github.com/RaiseCreed/FoodSearch/assets/104384996/016b1dce-a2df-4154-b5ae-12bb0bf6680d)
+![account](https://github.com/RaiseCreed/FoodSearch/assets/104384996/11202467-727a-4989-a700-6a247450998e)
 ![recipePreview](https://github.com/RaiseCreed/FoodSearch/assets/104384996/05152301-c04f-4ec0-8a27-519745f4e323)
 ![registerPage](https://github.com/RaiseCreed/FoodSearch/assets/104384996/370aaf78-1dc0-47d8-96aa-89f75e9b1473)
 
