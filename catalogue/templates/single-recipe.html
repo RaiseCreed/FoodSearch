@@ -1,0 +1,82 @@
+{% extends 'main.html' %}
+{% block body %}
+  <!-- Main Section -->
+  <main class="singleProject my-md">
+    <div class="container">
+      <div class="layout">
+        <div class="column column--1of3">
+          <h3 class="singleProject__subtitle">Tags</h3>
+          <div class="singleProject__toolStack">
+            
+            {% for tag in recipe.tags.all %}
+            <span class="tag tag--pill tag--main tag--lg">
+              <small>{{tag}}</small>
+            </span>
+            {% endfor %}
+          
+          </div>
+          <img class="singleProject__preview" src="{{ recipe.image.url }}" alt="portfolio thumbnail" />
+          <p class="singleProject__developer">{{recipe.owner.username}}</p>
+        </div>
+        <div class="column column--2of3">
+          
+          <a href="{{ request.META.HTTP_REFERER }}"><span class="tag tag--pill tag--main tag--lg"><</span></a><br><br><h2 class="singleProject__title">{{recipe.name}}</h2>
+          <h4>{{recipe.intro}}</h4> <br>
+          <h3 class="singleProject__subtitle">Recipe details</h3>
+          <div class="singleProject__info">
+            {{recipe.description|linebreaksbr}}
+          </div>
+
+          <br><br>
+
+          <div>
+            <h3 class="singleProject__subtitle">Feedback</h3>
+            <h5 class="project--rating">
+                {{recipe.vote_ratio}}% Postitive Feedback ({{recipe.vote_total}} Vote{{recipe.vote_total|pluralize:"s"}})
+            </h5>
+
+            {% if request.user.profile.id in recipe.reviewers %}
+            <p>You have already submitted your review for this recipe!</p>
+            {% elif request.user.profile == recipe.owner %}
+            <p>You cannot review your own recipe</p>
+            {% elif request.user.is_authenticated %}
+            <form class="form" action="" method="POST">
+              {% csrf_token %}
+              {% for field in form %}
+              <div class="form__field">
+                <label for="formInput#textarea">{{field.label}}</label>
+                {{field}}
+              </div>
+              {% endfor %}
+              <input class="btn btn--sub btn--lg" type="submit" value="Comments" />
+            </form>
+            {% else %}
+            <a href="{% url 'login' %}">Please log in to leave a review!</a>
+            {% endif %}
+
+            <div class="commentList">
+              
+              {% for review in recipe.review_set.all %}
+              {% if review.body %}
+              <div class="comment">
+                  <img class="avatar avatar--md" src="{{review.owner.image.url}}" alt="user" />
+                <div class="comment__details">
+                  <h3  class="comment__author">{{review.owner.username}}</h3>
+                  <p class="comment__info">
+                    {{review.body|linebreaksbr}}
+                  </p>
+                </div>
+              </div>
+              {% endif %}
+              {% endfor %}
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    </div>
+  </main>
+{% endblock body %}

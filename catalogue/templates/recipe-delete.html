@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+{% block body %}
+
+<main class="formPage my-xl">
+    <div class="content-box">
+        <div class="formWrapper">
+            <br>
+
+            <form class="form" method="POST" action="">
+                {% csrf_token %}
+                <p>Are you sure you want to delete "<b>{{recipe}}</b>" ?</p>
+
+                <a href="{% url 'account' %}" class="btn btn--sub btn--lg  my-md loginButton">
+                    Go back
+                </a>
+        
+                <input class="btn btn--sub btn--lg  my-md loginButton" type="submit" value="Delete" />
+            </form>
+
+        </div>
+    </div>
+</main>
+
+{% endblock body %}

@@ -1,0 +1,67 @@
+{% extends 'main.html' %}
+
+{% block body %}
+<main class="profile my-md">
+    <div class="container">
+      <div class="layout">
+        <div class="column column--1of3">
+          <div class="card text-center">
+            <div class="card__body dev">
+                <a class="tag tag--pill tag--main settings__btn" href="{% url 'edit-account' %}"><i class="im im-edit"></i>Edit</a> <br>
+                <br>
+                <img class="avatar avatar--xl" src="{{ profile.image.url }}" />
+                <h2 class="dev__name">{{ profile.username }}</h2>
+                <p class="dev__title">{{ profile.email }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="column column--2of3">
+          <div class="devInfo">
+            <h3 class="devInfo__title">My Recipes</h3> <a href="{% url 'add-recipe' %}" class="tag tag--pill tag--main">Add</a> 
+            <br>
+            <br>
+            <div class="grid grid--two">
+
+            {% for recipe in recipes %}
+              <div class="column">
+                <div class="card project">
+                  <a href="{% url 'single-recipe' recipe.id %}" class="project">
+                    <img class="project__thumbnail" src="{{ recipe.image.url }}" alt="recipe thumbnail" />
+                    <div class="card__body">
+                      <h3 class="project__title">{{ recipe.name }}</h3>
+                      <h5 class="project__intro">
+                        {% if recipe.intro|length > 50 %}
+                          {{recipe.intro|slice:"50"}}...
+                        {% else %}
+                          {{recipe.intro}}
+                        {% endif %}
+                      </h5>
+                      <!-- <p class="project--rating">
+                        <span style="font-weight: bold;">{{ project.vote_ratio }}%</span> Postitive
+                        Feedback ({{ project.vote_total}} Vote{{project.vote_total|pluralize:"s"}})
+                      </p> -->
+                      <div class="project__tags">
+
+                        {% for tag in recipe.tags.all %}
+                        <span class="tag tag--pill tag--main">
+                          <small>{{tag.name}}</small>
+                        </span>
+                        {% endfor %}
+                        
+
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <a href="{% url 'edit-recipe' recipe.id %}"><span class="tag tag--pill tag--edit">Edit</span></a><span>&nbsp;</span>
+                <a href="{% url 'delete-recipe' recipe.id %}"><span class="tag tag--pill tag--delete">Delete</span></a>
+              </div>
+              {% endfor %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock body %}

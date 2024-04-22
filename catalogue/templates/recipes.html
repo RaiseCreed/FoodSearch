@@ -1,0 +1,99 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block body %}
+<main class="home">
+  <section class="hero-section text-center">
+    <div class="container container--narrow">
+      <div class="hero-section__box">
+        <h2>DISCOVER AMAZING <span>RECIPES</span></h2>
+        <h2>FROM AROUND THE WORLD</h2>
+      </div>
+
+      <div class="hero-section__search">
+        <form id='searchForm' class="form" action="" method="get">
+          <div class="form__field">
+            <label for="formInput#search">Search By Recipes </label>
+            <input class="input input--text" id="formInput#search" type="text" name="search_query"
+              placeholder="Search by Recipe Name" value="{{searchQuery}}"  />
+          </div>
+
+          <input class="btn btn--sub btn--lg" type="submit" id="searchButton" value="Search" />
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="projectsList">
+    <div class="container">
+      <div class="grid grid--three">
+
+        {% for recipe in recipes %}
+
+        <div class="column">
+          <div class="card project">
+            <a href="{% url 'single-recipe' recipe.id %}" class="project">
+              <img class="project__thumbnail" src="{{ recipe.image.url }}" alt="recipe thumbnail" />
+              <div class="card__body">
+                <h3 class="project__title">{{recipe}}</h3>
+                <h5 class="project__intro">
+                  {% if recipe.intro|length > 50 %}
+                    {{recipe.intro|slice:"50"}}...
+                  {% else %}
+                    {{recipe.intro}}
+                  {% endif %}
+                </h5>
+                <p class="project__author">By {{ recipe.owner }}</p>
+                <p class="project--rating">
+                  <span style="font-weight: bold;">{{recipe.vote_ratio}}%</span> Positive
+                  Feedback ({{recipe.vote_total}} Vote{{recipe.vote_total|pluralize:"s"}})
+                </p>
+                
+                <div class="project__tags">
+
+                  {% for tag in  recipe.tags.all %}
+                  <span class="tag tag--pill tag--main">
+                    <small>{{tag}}</small>
+                  </span>
+                  {% endfor %}
+            
+                </div> 
+
+              </div>
+            </a>
+          </div>
+        </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+  </section>
+
+  
+  {% if recipes.has_other_pages %}
+    <div class="pagination">
+      <ul class="container">
+
+        {% if recipes.has_previous %}
+        <li><a href="?search_query={{searchQuery}}&page={{recipes.previous_page_number}}" class="btn page-link">&#10094; Previous</a></li>
+        {% endif %}
+
+        {% for page in custom_range %}
+
+        {% if page == recipes.number %}
+        <li><a href="?search_query={{searchQuery}}&page={{page}}" class="btn btn--sub page-link">{{page}}</a></li>
+        {% else %}
+        <li><a href="?search_query={{searchQuery}}&page={{page}}" class="btn page-link">{{page}}</a></li>
+        {% endif %}
+
+        {% endfor %}
+
+        {% if recipes.has_next %}
+        <li><a href="?search_query={{searchQuery}}&page={{recipes.next_page_number}}" class="btn page-link">Next &#10095;</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  {% endif %}
+
+</main>
+{% endblock body %}
